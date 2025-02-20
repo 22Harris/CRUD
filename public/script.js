@@ -51,30 +51,82 @@ async function deleteItem(id) {
     if (confirm("Voulez-vous vraiment supprimer cet item ?")) {
         const response = await fetch(`/api/items/delete/${id}`, { method: "DELETE" });
 
-        if (response.ok) {
-            fetchItems(); // Recharger la liste après suppression
-        } else {
-            alert("Erreur lors de la suppression !");
-        }
+        fetchItems();
     }
 }
 
 // Fonction pour mettre à jour un item
 async function updateItem(id) {
-    const newName = prompt("Nouveau nom :");
-    const newDescription = prompt("Nouvelle description :");
+    try {
+        // Récupérer l'item actuel
+        const response = await fetch(`/api/items/search/${id}`);
+        if (!response.ok) throw new Error("Erreur lors de la récupération de l'item");
 
-    if (newName && newDescription) {
-        const response = await fetch(`/api/items/update/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: newName, description: newDescription })
+        const item = await response.json();
+
+        // Demander à l'utilisateur de modifier (pré-remplir avec les valeurs actuelles)
+        const newName = prompt("Nouveau nom :", item.name) || item.name;
+        const newDescription = prompt("Nouvelle description :", item.description) || item.description;
+
+        // Envoyer les modifications si au moins un champ a changé
+        if (newName !== item.name || newDescription !== item.description) {
+            const updateResponse = await fetch(`/api/items/update/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: newName, description: newDescription })
+            });
+
+            //if (!updateResponse.ok) throw new Error("Erreur lors de la mise à jour");
+
+            fetchItems(); // Recharger la liste après modification
+        }
+
+    } catch (error) {
+        alert(`❌ ${error.message}`);
+    }
+}
+
+
+
+document.getElementById("searchName").addEventListener("input", searchItem);
+
+// Fonction pour rechercher un item par nom
+async function searchItem() {
+    const itemName = document.getElementById("searchName").value.trim();
+
+    // Ne pas effectuer la recherche si le champ est vide
+    if (!itemName) {
+        document.getElementById("searchResult").innerHTML = "";
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/items/search-by-name/${itemName}`);
+
+        if (!response.ok) {
+            throw new Error("Item non trouvé !");
+        }
+
+        const items = await response.json();
+
+        if (items.length === 0) {
+            document.getElementById("searchResult").innerHTML = `<p style="color: red;">❌ Aucun item trouvé avec ce nom.</p>`;
+            return;
+        }
+
+        // Affichage des résultats
+        let resultHTML = "<h3>Résultats de la recherche :</h3>";
+        items.forEach(item => {
+            resultHTML += `
+                <p><strong>Nom :</strong> ${item.name}</p>
+                <p><strong>Description :</strong> ${item.description}</p>
+                <hr>
+            `;
         });
 
-        if (response.ok) {
-            fetchItems(); // Recharger la liste après modification
-        } else {
-            alert("Erreur lors de la mise à jour !");
-        }
+        document.getElementById("searchResult").innerHTML = resultHTML;
+
+    } catch (error) {
+        document.getElementById("searchResult").innerHTML = `<p style="color: red;">❌ ${error.message}</p>`;
     }
 }

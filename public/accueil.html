@@ -8,14 +8,19 @@
 </head>
 <body>
 
-<!-- Formulaire pour ajouter un nouvel item -->
-<h2>Ajouter un Item</h2>
-<form id="addItemForm" action="/api/items/create" method="POST">
-    <input type="text" name="name" placeholder="Nom" required>
-    <input type="text" name="description" placeholder="Description" required>
-    <button type="submit">Ajouter</button>
-</form>
+    <!-- Formulaire pour ajouter un nouvel item -->
+    <h2>Ajouter un Item</h2>
+    <form id="addItemForm">
+        <input type="text" id="name" placeholder="Nom" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <button type="submit">Ajouter</button>
+    </form>
 
+    <!-- Formulaire pour rechercher un item -->
+    <h2>Rechercher un Item</h2>
+    <input type="text" id="searchName" placeholder="Entrez le nom de l'item">
+
+    <div id="searchResult"></div>
 
     <h1>Liste des Items</h1>
     <table border="1">
@@ -31,6 +36,5 @@
         </tbody>
     </table>
 
-    
 </body>
 </html>

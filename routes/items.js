@@ -22,7 +22,8 @@ router.get("/accueil", (req, res) => {
 // ➤ CRUD Routes
 router.post("/create", controller.createItems);
 router.delete("/delete/:id", controller.deleteItems);
-router.get("/search/:id", controller.searchItems);
+router.get("/search/:id", controller.searchItemsbyID);
+router.get("/search-by-name/:name", controller.searchItems);
 router.put("/update/:id", controller.updateItems);
 
 module.exports = router;
