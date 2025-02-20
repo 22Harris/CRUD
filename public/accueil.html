@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+<!-- Formulaire pour ajouter un nouvel item -->
+<h2>Ajouter un Item</h2>
+<form id="addItemForm" action="/api/items/create" method="POST">
+    <input type="text" name="name" placeholder="Nom" required>
+    <input type="text" name="description" placeholder="Description" required>
+    <button type="submit">Ajouter</button>
+</form>
+
+
+    <h1>Liste des Items</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="itemsTable">
+            <!-- Les items seront affichés ici -->
+        </tbody>
+    </table>
+
+    
+</body>
+</html>
