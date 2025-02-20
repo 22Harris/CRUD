@@ -1,0 +1,122 @@
+/* Réinitialisation basique du style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corps de la page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    padding: 20px;
+}
+
+/* En-têtes */
+h1, h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Formulaire d'ajout d'item */
+#addItemForm {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+#addItemForm input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#addItemForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#addItemForm button:hover {
+    background-color: #45a049;
+}
+
+/* Formulaire de recherche */
+#searchName {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#searchResult {
+    margin-top: 10px;
+}
+
+/* Tableau des items */
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table td button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table td button:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+table td button:focus {
+    outline: none;
+}
+
+table td button.update {
+    background-color: #ffa500;
+}
+
+table td button.update:hover {
+    background-color: #ff9800;
+}
+
+/* Styles responsive */
+@media (max-width: 768px) {
+    #addItemForm, table {
+        width: 100%;
+    }
+
+    #addItemForm button {
+        width: 100%;
+    }
+}
